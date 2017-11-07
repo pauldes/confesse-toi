@@ -26,7 +26,11 @@ app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-M
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.set('views', __dirname + '/public/account')
 
-app.use(session({ secret: 'pauldesleplusbeaulol' })); // session secret
+app.use(session({
+	secret: 'PaulDesLePlusBeau',
+	resave: true,
+	saveUninitialized: true
+})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash());

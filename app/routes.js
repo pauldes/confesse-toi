@@ -1,4 +1,7 @@
 var Todo = require('./models/todo');
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+
 
 /*
 Fait le routage de l'API mais aussi les services
@@ -88,7 +91,11 @@ module.exports = function (app, passport) {
 
     // application -------------------------------------------------------------
     app.get('/', function (req, res) {
-        res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+        res.sendFile(appDir + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });
+
+    app.get('/posts', isLoggedIn, function (req, res) {
+        res.sendFile(appDir + '/public/posts.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 
     // =====================================
@@ -102,7 +109,7 @@ module.exports = function (app, passport) {
     });
 
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : '/posts', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -150,5 +157,6 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    req.flash('loginMessage', 'You need to log in first!')
+    res.redirect('/login');
 }

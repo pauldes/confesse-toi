@@ -24,6 +24,7 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse applicati
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
 app.set('view engine', 'ejs'); // set up ejs for templating
+app.set('views', __dirname + '/public/account')
 
 app.use(session({ secret: 'pauldesleplusbeaulol' })); // session secret
 app.use(passport.initialize());

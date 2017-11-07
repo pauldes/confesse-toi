@@ -69,11 +69,15 @@
 				<div class="col-sm-4 col-sm-offset-4">
 
 					<!-- LOOP OVER THE SINS IN $scope.todos -->
-					<div class="checkbox" ng-repeat="todo in todos | orderBy : '-posted'">
-						<label>
-							<input type="checkbox" ng-click="deleteTodo(todo._id)">
-							{{ todo.text }}
-						</label>
+					<div ng-repeat="todo in todos | orderBy : '-posted'">
+						{{ todo.text }}
+
+							<span class="glyphicon glyphicon-trash" ng-click="deleteTodo(todo._id)"></span>
+
+							<span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(todo._id)"></span>
+							{{todo.upvotes}}
+							<span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(todo._id)"></span>
+							{{todo.downvotes}}
 					</div>
 
 

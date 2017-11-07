@@ -11,10 +11,10 @@ module.exports = mongoose.model('Sins', {
     },
     upvotes: {
     	type: Number,
-    	default: 1
+    	default: 0
     },
     downvotes: {
     	type: Number,
-    	default: 1
+    	default: 0
     }
 });

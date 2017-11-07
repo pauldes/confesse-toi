@@ -1,13 +1,13 @@
 angular.module('todoController', [])
 
-	// inject the Todo service factory into our controller
+	// inject the Sin service factory into our controller
 	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
 		$scope.formData = {};
 		$scope.loading = true;
 
 		// GET =====================================================================
-		// when landing on the page, get all todos and show them
-		// use the service to get all the todos
+		// when landing on the page, get all sins and show them
+		// use the service to get all the sins
 		Todos.get()
 			.success(function(data) {
 				$scope.todos = data;
@@ -36,15 +36,42 @@ angular.module('todoController', [])
 		};
 
 		// DELETE ==================================================================
-		// delete a todo after checking it
+		// delete a sin after checking it
 		$scope.deleteTodo = function(id) {
 			$scope.loading = true;
 
 			Todos.delete(id)
-				// if successful creation, call our get function to get all the new todos
+				// if successful creation, call our get function to get all the new sins
 				.success(function(data) {
 					$scope.loading = false;
-					$scope.todos = data; // assign our new list of todos
+					$scope.todos = data; // assign our new list of sins
 				});
 		};
+
+        // UPVOTE ==================================================================
+        // upvote a sin after clicking 'up'
+        $scope.upvoteSin = function(id) {
+            $scope.loading = true;
+
+            Todos.upvote(id)
+            // if successful creation, call our get function to get all the new sins
+                .success(function(data) {
+                    $scope.loading = false;
+                    $scope.todos = data; // assign our new list of sins
+                });
+        };
+
+        // DOWNVOTE ==================================================================
+        // downvote a sin after clicking 'down'
+        $scope.downvoteSin = function(id) {
+            $scope.loading = true;
+
+            Todos.downvote(id)
+            // if successful creation, call our get function to get all the new sins
+                .success(function(data) {
+                    $scope.loading = false;
+                    $scope.todos = data; // assign our new list of sins
+                });
+        };
+
 	}]);

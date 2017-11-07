@@ -7,7 +7,7 @@ function getTodos(res) {
         if (err) {
             res.send(err);
         }
-        res.json(todos); // return all todos in JSON format
+        res.json(todos); // return all sins in JSON format
     });
 };
 
@@ -16,14 +16,14 @@ module.exports = function (app) {
     // api ---------------------------------------------------------------------
     // get all todos
     app.get('/api/todos', function (req, res) {
-        // use mongoose to get all todos in the database
+        // use mongoose to get all sins in the database
         getTodos(res);
     });
 
-    // create todo and send back all todos after creation
+    // create sin and send back all sins after creation
     app.post('/api/todos', function (req, res) {
 
-        // create a todo, information comes from AJAX request from Angular
+        // create a sin, information comes from AJAX request from Angular
         Todo.create({
             text: req.body.text,
             done: false
@@ -37,7 +37,7 @@ module.exports = function (app) {
 
     });
 
-    // delete a todo
+    // delete a sin
     app.delete('/api/todos/:todo_id', function (req, res) {
         Todo.remove({
             _id: req.params.todo_id
@@ -47,6 +47,34 @@ module.exports = function (app) {
 
             getTodos(res);
         });
+    });
+
+    // upvote a sin
+    app.upvote('/api/todos/:todo_id', function (req, res) {
+
+        Todo.findOneAndUpdate({ _id: req.params.todo_id }, { $inc: { fieldToIncrement: 1 })
+            .exec(function(err, db_res) {
+                if (err) {
+                    throw err;
+                }
+                else {
+                    console.log(db_res);
+                }
+            });
+    });
+
+    // downvote a sin
+    app.downvote('/api/todos/:todo_id', function (req, res) {
+
+        Todo.findOneAndUpdate({ _id: req.params.todo_id }, { $inc: { fieldToIncrement: -1 })
+            .exec(function(err, db_res) {
+                if (err) {
+                    throw err;
+                }
+                else {
+                    console.log(db_res);
+                }
+            });
     });
 
     // application -------------------------------------------------------------

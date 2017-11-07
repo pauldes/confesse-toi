@@ -12,7 +12,7 @@ logs
 results
 
 config\database.js
-.idea\
+.idea/*
 
 npm-debug.log
 node_modules

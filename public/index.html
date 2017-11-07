@@ -7,7 +7,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>the confessional</title>
+	<title>The Confessional</title>
+	<link rel="icon" href="favicon.png" sizes="50x50" type="image/png">
+
+	<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -17,6 +20,7 @@
 		body 					{ padding-top:50px; }
 		#todo-list 				{ margin-bottom:30px; }
 		#todo-form 	 			{ margin-bottom:50px; }
+		h1						{ color: #8c590c !important; font-family: "Great Vibes", cursive; font-size: 4em !important; text-align: center; text-shadow: 0 1px 1px #fff;}
 	</style>
 
 	<!-- SPELLS -->
@@ -35,11 +39,11 @@
 		<div class="jumbotron text-center">
 			<h1>Confess your sins</h1>
 			<h2>and we will judge you.</h2>
-			<h3>oh yes we will.</h3>
+			<h3>Oh yes we will.</h3>
 			<h4><span class="label label-info">{{ todos.length }}</span> sins have already ruined this world</h4>
 		</div>
 
-		<!-- TODO LIST -->
+		<!-- SINS LIST -->
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
@@ -48,7 +52,8 @@
 				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<div class="checkbox" ng-repeat="todo in todos">
 					<label>
-						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
+						<input type="checkbox" ng-click="deleteTodo(todo._id)">
+						{{ todo.text }}
 					</label>
 				</div>
 

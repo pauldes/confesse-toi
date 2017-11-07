@@ -38,6 +38,7 @@ module.exports = function (app, passport) {
     });
 
     // delete a sin
+
     app.delete('/api/todos/:todo_id', function (req, res) {
         Todo.remove({
             _id: req.params.todo_id
@@ -49,33 +50,40 @@ module.exports = function (app, passport) {
         });
     });
 
+    /*
+
     // upvote a sin
+
     app.upvote('/api/todos/:todo_id', function (req, res) {
 
-        Todo.findOneAndUpdate({ _id: req.params.todo_id }, { $inc: { fieldToIncrement: 1 })
-            .exec(function(err, db_res) {
-                if (err) {
-                    throw err;
-                }
-                else {
-                    console.log(db_res);
-                }
-            });
+        Todo.findOneAndUpdate({
+            _id: req.params.todo_id
+        },{$inc: { upvotes: 1 }}
+        , function (err, todo) {
+            if (err)
+                res.send(err);
+
+            getTodos(res);
+        });
     });
+
 
     // downvote a sin
     app.downvote('/api/todos/:todo_id', function (req, res) {
 
-        Todo.findOneAndUpdate({ _id: req.params.todo_id }, { $inc: { fieldToIncrement: -1 })
-            .exec(function(err, db_res) {
-                if (err) {
-                    throw err;
-                }
-                else {
-                    console.log(db_res);
-                }
+        Todo.findOneAndUpdate({
+                _id: req.params.todo_id
+            },{$inc: { upvotes: -1 }}
+            , function (err, todo) {
+                if (err)
+                    res.send(err);
+
+                getTodos(res);
             });
     });
+
+    */
+
 
     // application -------------------------------------------------------------
     app.get('/', function (req, res) {

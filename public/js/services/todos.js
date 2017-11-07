@@ -13,13 +13,11 @@ angular.module('todoService', [])
 			delete : function(id) {
 				return $http.delete('/api/todos/' + id);
 			},
-			/*
             upvote : function(id) {
-                return $http.upvote('/api/todos/' + id);
+                return $http.post('/api/todos/up/' + id);
             },
             downvote : function(id) {
-                return $http.downvote('/api/todos/' + id);
+                return $http.post('/api/todos/down/' + id);
             }
-            */
 		}
 	}]);

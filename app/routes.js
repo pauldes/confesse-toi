@@ -50,16 +50,16 @@ module.exports = function (app, passport) {
         });
     });
 
-    /*
-
     // upvote a sin
 
-    app.upvote('/api/todos/:todo_id', function (req, res) {
+    app.post('/api/todos/up/:todo_id', function (req, res) {
 
         Todo.findOneAndUpdate({
             _id: req.params.todo_id
-        },{$inc: { upvotes: 1 }}
-        , function (err, todo) {
+        },{
+            $inc: { upvotes: 1 }
+        },
+            function (err, todo) {
             if (err)
                 res.send(err);
 
@@ -69,7 +69,7 @@ module.exports = function (app, passport) {
 
 
     // downvote a sin
-    app.downvote('/api/todos/:todo_id', function (req, res) {
+    app.post('/api/todos/down/:todo_id', function (req, res) {
 
         Todo.findOneAndUpdate({
                 _id: req.params.todo_id
@@ -81,9 +81,6 @@ module.exports = function (app, passport) {
                 getTodos(res);
             });
     });
-
-    */
-
 
     // application -------------------------------------------------------------
     app.get('/', function (req, res) {

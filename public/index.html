@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
 	<title>The Confessional</title>
-	<link rel="icon" href="favicon.png" sizes="50x50" type="image/png">
+	<link rel="icon" href="assets/favicon.png" sizes="50x50" type="image/png">
 
 	<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
 
@@ -43,28 +43,7 @@
 			<h4><span class="label label-info">{{ todos.length }}</span> sins have already ruined this world</h4>
 		</div>
 
-		<!-- SINS LIST -->
-		<div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				
-
-				<!-- LOOP OVER THE TODOS IN $scope.todos -->
-				<div class="checkbox" ng-repeat="todo in todos">
-					<label>
-						<input type="checkbox" ng-click="deleteTodo(todo._id)">
-						{{ todo.text }}
-					</label>
-				</div>
-
-				<p class="text-center" ng-show="loading">
-					<span class="fa fa-spinner fa-spin fa-3x"></span>
-				</p>
-
-			</div>
-		</div>
-
-		<!-- FORM TO CREATE TODOS -->
+		<!-- FORM TO CREATE SINS -->
 		<div id="todo-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
@@ -75,10 +54,34 @@
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Confess !</button>
 				</form>
 			</div>
 		</div>
+
+		<p class="text-center" ng-show="loading">
+			<span class="fa fa-spinner fa-spin fa-3x"></span>
+		</p>
+
+		<!-- SINS LIST -->
+
+			<div id="todo-list" class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+
+					<!-- LOOP OVER THE SINS IN $scope.todos -->
+					<div class="checkbox" ng-repeat="todo in todos | orderBy : '-posted'">
+						<label>
+							<input type="checkbox" ng-click="deleteTodo(todo._id)">
+							{{ todo.text }}
+						</label>
+					</div>
+
+
+
+					</div>
+				</div>
+
+
 
 	</div>
 

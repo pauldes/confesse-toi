@@ -1,5 +1,9 @@
 var Todo = require('./models/todo');
 
+/*
+Fait le routage de l'API mais aussi les services
+ */
+
 function getTodos(res) {
     Todo.find(function (err, todos) {
 
@@ -73,7 +77,7 @@ module.exports = function (app, passport) {
 
         Todo.findOneAndUpdate({
                 _id: req.params.todo_id
-            },{$inc: { upvotes: -1 }}
+            },{$inc: { downvotes: 1 }}
             , function (err, todo) {
                 if (err)
                     res.send(err);

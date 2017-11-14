@@ -1,4 +1,5 @@
 var Todo = require('./models/todo');
+var User = require('./models/user');
 var path = require('path');
 var appDir = path.dirname(require.main.filename);
 
@@ -34,9 +35,11 @@ module.exports = function (app, passport) {
         Todo.create({
             text: req.body.text,
             done: false
-        }, function (err, todo) {
+        }, function (err, created) {
             if (err)
                 res.send(err);
+
+            req.user.setOwner(created._id);
 
             // get and return all the todos after you create another
             getTodos(res);
@@ -47,46 +50,70 @@ module.exports = function (app, passport) {
     // delete a sin
 
     app.delete('/api/todos/:todo_id', function (req, res) {
-        Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
 
-            getTodos(res);
-        });
+        var user = req.user;
+        var sinId = req.params.todo_id;
+
+        if( !user.owns(sinId)){
+            res.send("Unauthorized deletion");
+            //getTodos(res);
+        } else {
+            Todo.remove({
+                _id: req.params.todo_id
+            }, function (err, todo) {
+                if (err)
+                    res.send(err);
+                getTodos(res);
+            });
+        }
     });
 
     // upvote a sin
 
     app.post('/api/todos/up/:todo_id', function (req, res) {
 
-        Todo.findOneAndUpdate({
-            _id: req.params.todo_id
-        },{
-            $inc: { upvotes: 1 }
-        },
-            function (err, todo) {
-            if (err)
-                res.send(err);
+        var user = req.user;
+        var sinId = req.params.todo_id;
 
-            getTodos(res);
-        });
+        if( user.owns(sinId)){
+            res.send("Unauthorized upvote");
+            //getTodos(res);
+        } else {
+            user.addToUpvotes(sinId);
+            Todo.findOneAndUpdate({
+                _id: req.params.todo_id
+            },{
+                $inc: { upvotes: 1 }
+            },
+            function (err, todo) {
+                if (err)
+                    res.send(err);
+                getTodos(res);
+            });}
     });
 
 
     // downvote a sin
     app.post('/api/todos/down/:todo_id', function (req, res) {
 
-        Todo.findOneAndUpdate({
-                _id: req.params.todo_id
-            },{$inc: { downvotes: 1 }}
-            , function (err, todo) {
-                if (err)
-                    res.send(err);
+        var user = req.user;
+        var sinId = req.params.todo_id;
 
-                getTodos(res);
-            });
+        if( user.owns(sinId)){
+            res.send("Unauthorized downvote");
+            //getTodos(res);
+        } else {
+            user.addToDownvotes(sinId);
+            Todo.findOneAndUpdate({
+                    _id: req.params.todo_id
+                }, {$inc: {downvotes: 1}}
+                , function (err, todo) {
+                    if (err)
+                        res.send(err);
+
+                    getTodos(res);
+                });
+        }
     });
 
     // application -------------------------------------------------------------

@@ -1,9 +1,5 @@
 var mongoose = require('mongoose');
 
-/*
- * Model used to
- */
-
 module.exports = mongoose.model('User_x_Sin', {
     userId: {
         type: String,
@@ -19,11 +15,11 @@ module.exports = mongoose.model('User_x_Sin', {
     voteType: {
         upvote: {
             type: Boolean,
-            default: 0
+            default: false
         },
         downvote: {
             type: Boolean,
-            default: 0
+            default: false
         }
     },
 

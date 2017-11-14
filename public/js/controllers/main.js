@@ -51,7 +51,7 @@ angular.module('todoController', [])
         // UPVOTE ==================================================================
         // upvote a sin after clicking 'up'
         $scope.upvoteSin = function(id) {
-            $scope.loading = true;
+            $scope.loading = false;
 
             Todos.upvote(id)
             // if successful creation, call our get function to get all the new sins
@@ -64,7 +64,7 @@ angular.module('todoController', [])
         // DOWNVOTE ==================================================================
         // downvote a sin after clicking 'down'
         $scope.downvoteSin = function(id) {
-            $scope.loading = true;
+            $scope.loading = false;
 
             Todos.downvote(id)
             // if successful creation, call our get function to get all the new sins
@@ -73,5 +73,17 @@ angular.module('todoController', [])
                     $scope.todos = data; // assign our new list of sins
                 });
         };
+/*
+				$scope.isLoggedIn = function() {
+
+					$http.get('/checklogin')
+						.success(function(data) {
+							console.log(data);
+							$rootScope.loggedIn = data;
+						})
+						.error(function(data) {
+							console.log('error: ' + data);
+						});
+				};*/
 
 	}]);

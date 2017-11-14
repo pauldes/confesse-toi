@@ -1,0 +1,37 @@
+html {
+  overflow-y:scroll;
+}
+
+body 					{
+  padding-top:50px;
+}
+
+#sin-list{
+
+}
+
+#sin-form{
+  margin-bottom:50px;
+}
+
+#sin-item	{
+   background-color:#F4F4F4;
+   display: block;
+   border-radius: 8px;
+   padding: 1%;
+   padding-bottom: 5%;
+   text-overflow: ellipsis;
+   overflow: hidden;
+
+ }
+
+#sin-buttons{
+
+}
+h1{
+  color: #8c590c !important;
+  font-family: "Great Vibes", cursive;
+  font-size: 4em !important;
+  text-align: center;
+  text-shadow: 0 1px 1px #fff;
+}

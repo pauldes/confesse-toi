@@ -19,6 +19,18 @@ function getTodos(res) {
     });
 };
 
+function getUser(res) {
+    User.find(function (err, curuser) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err) {
+            res.send(err);
+        }
+        res.json(curuser); // return the user in JSON format
+    });
+};
+
+
 module.exports = function (app, passport) {
 
     // api ---------------------------------------------------------------------
@@ -26,6 +38,10 @@ module.exports = function (app, passport) {
     app.get('/api/todos', function (req, res) {
         // use mongoose to get all sins in the database
         getTodos(res);
+    });
+
+    app.get('/api/user', function(req,res){
+        getUser(res);
     });
 
     // create sin and send back all sins after creation
@@ -116,9 +132,14 @@ module.exports = function (app, passport) {
         }
     });
 
+
+
     // application -------------------------------------------------------------
     app.get('/', function (req, res) {
+        if (req.isAuthenticated()){
+            res.redirect('/posts');
         res.sendFile(appDir + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+        }
     });
 
     app.get('/posts', isLoggedIn, function (req, res) {
@@ -136,10 +157,12 @@ module.exports = function (app, passport) {
     });
 
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/', // redirect to the secure profile section
+        successRedirect : '/posts', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
+
+
 
     // =====================================
     // SIGNUP ==============================

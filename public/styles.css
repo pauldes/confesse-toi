@@ -20,8 +20,13 @@ body 					{
    border-radius: 8px;
    padding: 1%;
    padding-bottom: 5%;
-   text-overflow: ellipsis;
-   overflow: hidden;
+   overflow:hidden;
+    word-wrap:break-word;
+
+
+ }
+
+ #sin-item.text{
 
  }
 

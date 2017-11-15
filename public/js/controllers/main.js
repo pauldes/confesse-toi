@@ -1,3 +1,5 @@
+
+
 angular.module('todoController', [])
 
 	// inject the Sin service factory into our controller
@@ -73,17 +75,7 @@ angular.module('todoController', [])
                     $scope.todos = data; // assign our new list of sins
                 });
         };
-/*
-				$scope.isLoggedIn = function() {
 
-					$http.get('/checklogin')
-						.success(function(data) {
-							console.log(data);
-							$rootScope.loggedIn = data;
-						})
-						.error(function(data) {
-							console.log('error: ' + data);
-						});
-				};*/
+
 
 	}]);

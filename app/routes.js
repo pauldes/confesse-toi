@@ -96,6 +96,7 @@ module.exports = function (app, passport) {
             //getTodos(res);
         } else {
             user.addToUpvotes(sinId);
+            //TODO remove if choice switch & do not do it if already up
             Todo.findOneAndUpdate({
                 _id: req.params.todo_id
             },{

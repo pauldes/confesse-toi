@@ -54,14 +54,10 @@ userSchema.methods.addToUpvotes = function(sinId) {
 };
 userSchema.methods.owns = function(sinId) {
     var res = false;
-    console.log("User owns "+this.sins.length+" sins")
     for(var i=0; i<this.sins.length;i++){
         var sin = this.sins[i];
-        console.log("current:"+sin.sinId+",lookup:"+sinId);
         if(sin.sinId.equals(sinId)){
-            console.log("same id found");
             if(sin.created){
-                console.log("created found");
                 res=true;
             }
         }
@@ -79,8 +75,6 @@ userSchema.methods.setOwner = function(sinId) {
     }
     if(!found){
         this.sins.push({sinId:sinId,created:true,upvoted:false,downvoted:false});
-        console.log("saved as owned:"+sinId);
-        console.log("New length: "+this.sins.length);
     }
     this.save();
 };

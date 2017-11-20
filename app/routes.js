@@ -58,7 +58,6 @@ module.exports = function (app, passport) {
 
         if( !user.owns(sinId)){
             res.send("Unauthorized deletion");
-            console.log("Unauthorized deletion");
             //getTodos(res);
         } else {
             Todo.remove({
@@ -80,10 +79,8 @@ module.exports = function (app, passport) {
 
         if( user.owns(sinId)){
             res.send("Unauthorized upvote");
-            console.log("Unauthorized upvote");
             //getTodos(res);
         } else {
-            console.log("Authorized upvote!");
             user.addToUpvotes(sinId);
             //TODO remove if choice switch & do not do it if already up
             Todo.findOneAndUpdate({
@@ -98,7 +95,6 @@ module.exports = function (app, passport) {
             });}
     });
 
-
     // downvote a sin
     app.post('/api/todos/down/:todo_id', function (req, res) {
 
@@ -107,10 +103,8 @@ module.exports = function (app, passport) {
 
         if( user.owns(sinId)){
             res.send("Unauthorized downvote");
-            console.log("Unauthorized downvote")
             //getTodos(res);
         } else {
-            console.log("Authorized downvote!");
             user.addToDownvotes(sinId);
             Todo.findOneAndUpdate({
                     _id: req.params.todo_id
@@ -132,6 +126,11 @@ module.exports = function (app, passport) {
         res.render('posts.ejs', {
             user : req.user // get the user out of session and pass to template
         });
+    });
+
+    // Get current user infos
+    app.get('/api/curruser', function (req, res) {
+        res.json(req.user);
     });
 
     // =====================================

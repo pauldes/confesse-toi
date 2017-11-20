@@ -24,7 +24,8 @@ userSchema.methods.validPassword = function(password) {
 
 userSchema.methods.addToDownvotes = function(sinId) {
     var found = false;
-    for(sin in this.sins){
+    for(var i=0; i<this.sins.length;i++){
+        var sin = this.sins[i];
         if(sin.sinId===sinId){
             sin.downvoted=true;
             sin.upvoted=false;
@@ -37,7 +38,8 @@ userSchema.methods.addToDownvotes = function(sinId) {
 };
 userSchema.methods.addToUpvotes = function(sinId) {
     var found=false;
-    for(sin in this.sins){
+    for(var i=0; i<this.sins.length;i++){
+        var sin = this.sins[i];
         if(sin.sinId===sinId){
             sin.downvoted=false;
             sin.upvoted=true;
@@ -50,7 +52,9 @@ userSchema.methods.addToUpvotes = function(sinId) {
 };
 userSchema.methods.owns = function(sinId) {
     var res = false;
-    for(sin in this.sins){
+    console.log("User owns "+this.sins.length+" sins")
+    for(var i=0; i<this.sins.length;i++){
+        var sin = this.sins[i];
         if(sin.sinId===sinId){
             if(sin.created){
                 res=true;
@@ -61,7 +65,8 @@ userSchema.methods.owns = function(sinId) {
 };
 userSchema.methods.setOwner = function(sinId) {
     var found = false;
-    for(sin in this.sins){
+    for(var i=0; i<this.sins.length;i++){
+        var sin = this.sins[i];
         if(sin.sinId===sinId){
             sin.created=true;
             found = true;
@@ -69,6 +74,10 @@ userSchema.methods.setOwner = function(sinId) {
     }
     if(!found){
         this.sins.push({sinId:sinId,created:true,upvoted:false,downvoted:false})
+        console.log(sinId)
+        console.log("New length: "+this.sins.length)
+        //TODO stays 1 and idk why !
+        console.log("Added sin: "+this.sins[this.sins.length-1])
     }
 };
 

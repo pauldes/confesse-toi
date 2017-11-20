@@ -42,17 +42,14 @@ body	{
        opacity:0.6;
 }
 
-.up:hover{
+.up:hover, .down:hover, .trash:hover {
        opacity: 1 !important;
 }
 
-.up:visited{
-    color:black !important;
- }
-
- .up:active{
-     color:black !important;
-  }
+.down {
+       color:red;
+       opacity:0.6;
+}
 
 h1{
   color: #8c590c !important;

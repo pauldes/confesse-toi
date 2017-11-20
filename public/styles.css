@@ -8,7 +8,10 @@ body	{
 }
 
 
-#page-header {
+#page-header-logged {
+    float:right;
+}
+#page-header-notlogged {
     float:right;
 }
 
@@ -34,6 +37,22 @@ body	{
     padding: 1%;
  }
 
+ .up {
+       color:green;
+       opacity:0.6;
+}
+
+.up:hover{
+       opacity: 1 !important;
+}
+
+.up:visited{
+    color:black !important;
+ }
+
+ .up:active{
+     color:black !important;
+  }
 
 h1{
   color: #8c590c !important;

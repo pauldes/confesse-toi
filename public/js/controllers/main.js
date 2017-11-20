@@ -3,13 +3,29 @@
 angular.module('sinController', [])
 
 	// inject the Sin service factory into our controller
-	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
-		
+	.controller('mainController', ['$scope','$http','Users','Todos', function($scope, $http, Users, Todos) {
+
 		//sort through sins
 		$scope.setOrder = function (order) {
 			$scope.order = order;
 		};
 
+
+		$scope.compareSins = function (sins, sin ){
+		// 	var res = false;
+		//     for(var i=0; i<sins.length;i++){
+		// 	 var tmp = sins[i];
+		// 	 if(tmp.sinId==sin._id){
+		// 	     if(tmp.created){
+		// 		  res=true;
+		// 	     }
+		// 	 }
+		//     }
+		//     console.log(res);
+		//     return res;
+
+			return true;
+		}
 
 		$scope.formData = {};
 		$scope.loading = true;
@@ -20,6 +36,12 @@ angular.module('sinController', [])
 		Todos.get()
 			.success(function(data) {
 				$scope.todos = data;
+				$scope.loading = false;
+			});
+
+		Users.get()
+			.success(function(data) {
+				$scope.curruser = data;
 				$scope.loading = false;
 			});
 

@@ -1,1 +1,1 @@
-angular.module('SinPost', ['sinController', 'todoService']);
+angular.module('SinPost', ['sinController', 'userService','todoService']);

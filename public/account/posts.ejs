@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="styles.css">
+  	<link rel="stylesheet" href="styles.css">
 
 
 	<!-- SPELLS -->
@@ -24,6 +24,7 @@
 
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/services/todos.js"></script> <!-- load our todo service -->
+	<script src="js/services/users.js"></script> <!-- load our todo service -->
 	<script src="js/core.js"></script> <!-- load our main application -->
 
 
@@ -33,16 +34,16 @@
 <body ng-controller="mainController" ng-init="setOrder('-posted')">
 	<div class="container">
 
-	<div id="page-header">
-		<% if (user) { %>
-			<span> <%= user.local.email %> </span>
-
+	{{curruser.local.email}}
+	<div id="page-header-logged" ng-show="curruser">
 			<a href="/profile" class="btn btn-default btn-sm " >Profile</a>
 			<a href="/logout" class="btn btn-default btn-sm ">Logout</a>
-		<% } else { %>
+	</div>
+
+		<div id="page-header-notlogged" ng-hide="curruser">
 			<a href="/login" class="btn btn-default btn-sm " >Login</a>
 			<a href="/signup" class="btn btn-default btn-sm ">Signup</a>
-		<% } %>
+
 	</div>
 
   <!-- HEADER AND SIN COUNT -->
@@ -53,11 +54,11 @@
   </div>
 
 		<!-- FORM TO CREATE SINS -->
-		<div id="sin-form" class="row" ng-show="'<%=user%>'">
+		<div id="sin-form" class="row" ng-show="curruser">
 
 	  <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 			<div class="col-sm-8 col-sm-offset-1 ">
-				<textarea rows="5" class="form-control input-lg" placeholder="I stole a lollipop from my nephew" ng-model="formData.text"></textarea>
+				<textarea rows="3" class="form-control input-lg" placeholder="I stole a lollipop from my nephew" ng-model="formData.text"></textarea>
 			</div>
 
 	  <div class="col-sm-2 text-center" >
@@ -68,6 +69,8 @@
 
 
 <!-- SINS LIST -->
+
+
 
 	<ul class="nav nav-tabs">
 	  <li ng-class="{'active': order=='-posted'}"><a href="#" ng-click="setOrder('-posted')">Latest</a></li>
@@ -83,12 +86,12 @@
 		              {{sin.text}}
 		       </div>
 
-		       <div class="col-sm-2 text-right" id="sin-buttons" ng-show="'<%=user%>'">
-		              <span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(sin._id)"></span>
-		              {{sin.upvotes}}
-		              <span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(sin._id)"></span>
-		              {{sin.downvotes}}
-		              <span class="glyphicon glyphicon-trash" ng-click="deleteTodo(sin._id)"></span>
+		       <div class="col-sm-2 text-right" id="sin-buttons" ng-show="curruser">
+		              <span class="glyphicon glyphicon-arrow-up up" id=sin-up ng-show="compareSins(curruser.sins, sin)" ng-click="upvoteSin(sin._id)"></span>
+		              <span>{{sin.upvotes}}</span>
+		              <span class="glyphicon glyphicon-arrow-down down" id=sin-down ng-show="compareSins(curruser.sins, sin)" ng-click="downvoteSin(sin._id)"></span>
+		              <span>{{sin.downvotes}}<span>
+		              <span class="glyphicon glyphicon-trash trash" id=sin-trash ng-show="!compareSins(curruser.sins, sin)" ng-click="deleteTodo(sin._id)"></span>
 		       </div>
 		</div>
 		<br>

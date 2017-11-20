@@ -82,7 +82,6 @@ module.exports = function (app, passport) {
             //getTodos(res);
         } else {
             user.addToUpvotes(sinId);
-            //TODO remove if choice switch & do not do it if already up
             Todo.findOneAndUpdate({
                 _id: req.params.todo_id
             },{
@@ -189,7 +188,24 @@ module.exports = function (app, passport) {
     // =====================================
     // DROP ==============================
     // =====================================
-    app.get('/drop', function(req, res) {
+    app.get('/drop/all', function(req, res) {
+        Todo.remove({}, function(err) {
+            console.log('collection removed')
+        });
+        User.remove({}, function(err) {
+            console.log('collection removed')
+        });
+        res.redirect('/');
+
+    });
+    app.get('/drop/users', function(req, res) {
+        User.remove({}, function(err) {
+            console.log('collection removed')
+        });
+        res.redirect('/');
+
+    });
+    app.get('/drop/sins', function(req, res) {
         Todo.remove({}, function(err) {
             console.log('collection removed')
         });

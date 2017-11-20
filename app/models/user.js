@@ -25,8 +25,10 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.addToDownvotes = function(sinId) {
     var found = false;
     for(var i=0; i<this.sins.length;i++){
+
         var sin = this.sins[i];
         if(sin.sinId.equals(sinId)){
+            adjustVoteBalance(sinId,sin.downvoted,sin.upvoted);
             sin.downvoted=true;
             sin.upvoted=false;
             found=true;
@@ -42,6 +44,9 @@ userSchema.methods.addToUpvotes = function(sinId) {
     for(var i=0; i<this.sins.length;i++){
         var sin = this.sins[i];
         if(sin.sinId.equals(sinId)){
+
+            adjustVoteBalance(sinId,sin.downvoted,sin.upvoted);
+
             sin.downvoted=false;
             sin.upvoted=true;
             found=true;
@@ -78,5 +83,32 @@ userSchema.methods.setOwner = function(sinId) {
     }
     this.save();
 };
+
+function adjustVoteBalance(sinId,downvoted,upvoted){
+
+    var Todo = require('../models/todo');
+
+    if(upvoted==false && downvoted==true){
+        Todo.findOneAndUpdate({
+                _id: sinId
+            },{
+                $inc: { downvotes: -1 }
+            },
+            function (err, todo) {
+                if (err)
+                    res.send(err);
+            });
+    }else if(upvoted==true && downvoted==false){
+        Todo.findOneAndUpdate({
+                _id: sinId
+            },{
+                $inc: { upvotes: -1 }
+            },
+            function (err, todo) {
+                if (err)
+                    res.send(err);
+            });
+    }
+}
 
 module.exports = mongoose.model('User', userSchema);

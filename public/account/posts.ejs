@@ -52,9 +52,8 @@
     <h4><span class="label label-info">{{ todos.length }}</span> sins have already ruined this world</h4>
   </div>
 
-	<% if (user) { %>
 		<!-- FORM TO CREATE SINS -->
-		<div id="sin-form" class="row">
+		<div id="sin-form" class="row" ng-show="'<%=user%>'">
 
 	  <!-- <div class="loading" class="col-sm-1 col-sm-offset-1" ng-show="loading">
 		<span class="fa fa-spinner fa-spin fa-2x"></span>
@@ -70,9 +69,7 @@
 		</div>
 		<!-- createToDo() WILL CREATE NEW TODOS -->
 
-
 		<br>
-	<% } %>
 
 <!-- SINS LIST -->
 
@@ -83,14 +80,13 @@
 			<div class="col-sm-10" id=sin-text >
 				{{sin.text}}
 			</div>
-			<% if (user) { %>
-			<div class="col-sm-2 text-right" id="sin-buttons">
+
+			<div class="col-sm-2 text-right" id="sin-buttons" ng-show="'<%=user%>'">
 				<span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(sin._id)"></span>
 				{{sin.upvotes}}
 				<span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(sin._id)"></span>
 				{{sin.downvotes}}
 				<span class="glyphicon glyphicon-trash" ng-click="deleteTodo(sin._id)"></span>
-			<% } %>
 			</div>
 		</div>
 		<br>

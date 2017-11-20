@@ -1,7 +1,7 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
+<html ng-app="SinPost">
 <head>
 	<!-- META -->
 	<meta charset="utf-8">
@@ -30,7 +30,7 @@
 
 </head>
 <!-- SET THE CONTROLLER -->
-<body ng-controller="mainController">
+<body ng-controller="mainController" ng-init="setOrder('-posted')">
 	<div class="container">
 
 	<div id="page-header">
@@ -55,9 +55,6 @@
 		<!-- FORM TO CREATE SINS -->
 		<div id="sin-form" class="row" ng-show="'<%=user%>'">
 
-	  <!-- <div class="loading" class="col-sm-1 col-sm-offset-1" ng-show="loading">
-		<span class="fa fa-spinner fa-spin fa-2x"></span>
-	  </div> -->
 	  <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 			<div class="col-sm-8 col-sm-offset-1 ">
 				<textarea rows="5" class="form-control input-lg" placeholder="I stole a lollipop from my nephew" ng-model="formData.text"></textarea>
@@ -69,25 +66,30 @@
 		</div>
 		<!-- createToDo() WILL CREATE NEW TODOS -->
 
-		<br>
 
 <!-- SINS LIST -->
 
-	<div id="sin-list" ng-repeat="sin in todos | orderBy : '-posted'" class="row " >
+	<ul class="nav nav-tabs">
+	  <li ng-class="{'active': order=='-posted'}"><a href="#" ng-click="setOrder('-posted')">Latest</a></li>
+	  <li ng-class="{'active': order=='-upvotes'}"><a href="#" ng-click="setOrder('-upvotes')">Best</a></li>
+	  <li ng-class="{'active': order=='-downvotes'}"><a href="#" ng-click="setOrder('-downvotes')">Worst</a></li>
+	</ul>
+
+	<div id="sin-list" ng-repeat="sin in todos | orderBy:order" class="row " >
 
 		<!-- LOOP OVER THE SINS IN $scope.todos -->
 		<div id=sin-item>
-			<div class="col-sm-10" id=sin-text >
-				{{sin.text}}
-			</div>
+		       <div class="col-sm-10" id=sin-text >
+		              {{sin.text}}
+		       </div>
 
-			<div class="col-sm-2 text-right" id="sin-buttons" ng-show="'<%=user%>'">
-				<span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(sin._id)"></span>
-				{{sin.upvotes}}
-				<span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(sin._id)"></span>
-				{{sin.downvotes}}
-				<span class="glyphicon glyphicon-trash" ng-click="deleteTodo(sin._id)"></span>
-			</div>
+		       <div class="col-sm-2 text-right" id="sin-buttons" ng-show="'<%=user%>'">
+		              <span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(sin._id)"></span>
+		              {{sin.upvotes}}
+		              <span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(sin._id)"></span>
+		              {{sin.downvotes}}
+		              <span class="glyphicon glyphicon-trash" ng-click="deleteTodo(sin._id)"></span>
+		       </div>
 		</div>
 		<br>
 	</div>

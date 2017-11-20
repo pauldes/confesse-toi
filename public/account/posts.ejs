@@ -11,6 +11,9 @@
 	<link rel="icon" href="assets/favicon.png" sizes="50x50" type="image/png">
 
 	<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -34,7 +37,13 @@
 <body ng-controller="mainController" ng-init="setOrder('-posted')">
 	<div class="container">
 
-	{{curruser.local.email}}
+	<div ng-show="curruser">
+		Hello, <b>{{curruser.local.email}}</b>
+	</div>
+	<div ng-hide="curruser">
+		<i>You must signin to start confessing your sins !</i>
+	</div>
+
 	<div id="page-header-logged" ng-show="curruser">
 			<a href="/profile" class="btn btn-default btn-sm " >Profile</a>
 			<a href="/logout" class="btn btn-default btn-sm ">Logout</a>
@@ -65,7 +74,7 @@
 		<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Confess !</button>
 	  </div>
 		</div>
-		<!-- createToDo() WILL CREATE NEW TODOS -->
+		<!-- createToDo() WILL CREATE NEW SINS -->
 
 
 <!-- SINS LIST -->
@@ -73,25 +82,29 @@
 
 
 	<ul class="nav nav-tabs">
-	  <li ng-class="{'active': order=='-posted'}"><a href="#" ng-click="setOrder('-posted')">Latest</a></li>
-	  <li ng-class="{'active': order=='-upvotes'}"><a href="#" ng-click="setOrder('-upvotes')">Best</a></li>
-	  <li ng-class="{'active': order=='-downvotes'}"><a href="#" ng-click="setOrder('-downvotes')">Worst</a></li>
+	  <li ng-class="{'active': order=='-posted'}"><a href="#" ng-click="setOrder('-posted')">Latest sins</a></li>
+	  <li ng-class="{'active': order=='-upvotes'}"><a href="#" ng-click="setOrder('-upvotes')">They earned redemption</a></li>
+	  <li ng-class="{'active': order=='-downvotes'}"><a href="#" ng-click="setOrder('-downvotes')">Their souls are lost</a></li>
 	</ul>
 
 	<div id="sin-list" ng-repeat="sin in todos | orderBy:order" class="row " >
 
 		<!-- LOOP OVER THE SINS IN $scope.todos -->
 		<div id=sin-item>
-		       <div class="col-sm-10" id=sin-text >
+		       <div class="col-sm-9" id=sin-text >
 		              {{sin.text}}
 		       </div>
 
-		       <div class="col-sm-2 text-right" id="sin-buttons" ng-show="curruser">
-		              <span class="glyphicon glyphicon-arrow-up up" id=sin-up ng-show="compareSins(curruser.sins, sin)" ng-click="upvoteSin(sin._id)"></span>
-		              <span>{{sin.upvotes}}</span>
-		              <span class="glyphicon glyphicon-arrow-down down" id=sin-down ng-show="compareSins(curruser.sins, sin)" ng-click="downvoteSin(sin._id)"></span>
-		              <span>{{sin.downvotes}}<span>
-		              <span class="glyphicon glyphicon-trash trash" id=sin-trash ng-show="!compareSins(curruser.sins, sin)" ng-click="deleteTodo(sin._id)"></span>
+		       <div class="col-sm-3 text-right" id="sin-buttons" ng-show="curruser">
+				      <span class="angel">You are forgiven, son</span>
+				      <span class="glyphicon glyphicon-arrow-up up" id=sin-up ng-show="!ownSin(curruser.sins, sin)" ng-click="upvoteSin(sin._id)"></span>
+				      <span>{{sin.upvotes}}</span>
+				   <br>
+				      <span class="devil">You will burn in hell forever</span>
+				      <span class="glyphicon glyphicon-arrow-down down" id=sin-down ng-show="!ownSin(curruser.sins, sin)" ng-click="downvoteSin(sin._id)"></span>
+				      <span>{{sin.downvotes}}<span>
+				  <br>
+		              <span class="glyphicon glyphicon-trash trash" id=sin-trash ng-show="ownSin(curruser.sins, sin)" ng-click="deleteTodo(sin._id)"></span>
 		       </div>
 		</div>
 		<br>

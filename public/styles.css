@@ -61,3 +61,22 @@ h1{
   text-align: center;
   text-shadow: 0 1px 1px #fff;
 }
+
+.angel{
+    font-family: 'Indie Flower', cursive;
+}
+
+.devil{
+    font-family: 'Abril Fatface', cursive;
+}
+
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+}

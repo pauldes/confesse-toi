@@ -59,6 +59,7 @@ userSchema.methods.addToUpvotes = function(sinId) {
 };
 userSchema.methods.owns = function(sinId) {
     var res = false;
+
     for(var i=0; i<this.sins.length;i++){
         var sin = this.sins[i];
         if(sin.sinId.equals(sinId)){

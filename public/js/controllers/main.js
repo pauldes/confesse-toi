@@ -11,20 +11,28 @@ angular.module('sinController', [])
 		};
 
 
-		$scope.compareSins = function (sins, sin ){
-		// 	var res = false;
-		//     for(var i=0; i<sins.length;i++){
-		// 	 var tmp = sins[i];
-		// 	 if(tmp.sinId==sin._id){
-		// 	     if(tmp.created){
-		// 		  res=true;
-		// 	     }
-		// 	 }
-		//     }
-		//     console.log(res);
-		//     return res;
+		$scope.ownSin = function (sins, sin ){
 
-			return true;
+		// RETURN TRUE IF OWNER
+		if(sins==undefined || sin==undefined){
+			console.log('undefined - no user');
+			return false;
+		}
+
+		var res = false;
+
+		for(var i=0; i<sins.length;i++){
+		 	 var tmp = sins[i];
+		 	 //console.log("seeking "+sin._id+", found "+tmp.sinId);
+		 	 if(tmp.sinId==sin._id){
+		 	     if(tmp.created){
+		 		  res=true;
+		 	     }
+		 	 }
+		}
+		console.log(res);
+		return res;
+
 		}
 
 		$scope.formData = {};

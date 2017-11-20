@@ -1,9 +1,16 @@
 
 
-angular.module('todoController', [])
+angular.module('sinController', [])
 
 	// inject the Sin service factory into our controller
 	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
+		
+		//sort through sins
+		$scope.setOrder = function (order) {
+			$scope.order = order;
+		};
+
+
 		$scope.formData = {};
 		$scope.loading = true;
 

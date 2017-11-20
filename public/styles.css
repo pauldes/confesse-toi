@@ -2,10 +2,11 @@ html {
   overflow-y:scroll;
 }
 
-body 					{
+body	{
   padding-top:50px;
-  background-color: #F1F1F1;
+  background-color: #F4F4F4;
 }
+
 
 #page-header {
     float:right;
@@ -16,7 +17,7 @@ body 					{
 }
 
 #sin-item	{
-   background-color:#F4F4F4;
+   background-color:#FFFFFF;
    display: block;
    border-radius: 8px;
    padding-bottom: 5%;

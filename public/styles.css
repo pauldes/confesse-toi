@@ -6,10 +6,6 @@ body 					{
   padding-top:50px;
 }
 
-#sin-list{
-
-}
-
 #sin-form{
   margin-bottom:50px;
 }
@@ -21,13 +17,15 @@ body 					{
    padding: 1%;
    padding-bottom: 5%;
    overflow:hidden;
-    word-wrap:break-word;
+   word-wrap:break-word;
+
+   box-shadow: 1px 1px 8px #888888;
 
 
  }
 
- #sin-item.text{
-
+ #sin-text{
+   white-space: pre-line;
  }
 
 #sin-buttons{

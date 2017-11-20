@@ -58,6 +58,7 @@ module.exports = function (app, passport) {
 
         if( !user.owns(sinId)){
             res.send("Unauthorized deletion");
+            console.log("Unauthorized deletion");
             //getTodos(res);
         } else {
             Todo.remove({
@@ -79,8 +80,10 @@ module.exports = function (app, passport) {
 
         if( user.owns(sinId)){
             res.send("Unauthorized upvote");
+            console.log("Unauthorized upvote");
             //getTodos(res);
         } else {
+            console.log("Authorized upvote!");
             user.addToUpvotes(sinId);
             //TODO remove if choice switch & do not do it if already up
             Todo.findOneAndUpdate({
@@ -104,8 +107,10 @@ module.exports = function (app, passport) {
 
         if( user.owns(sinId)){
             res.send("Unauthorized downvote");
+            console.log("Unauthorized downvote")
             //getTodos(res);
         } else {
+            console.log("Authorized downvote!");
             user.addToDownvotes(sinId);
             Todo.findOneAndUpdate({
                     _id: req.params.todo_id
@@ -181,6 +186,18 @@ module.exports = function (app, passport) {
         req.logout();
         res.redirect('/');
     });
+
+    // =====================================
+    // DROP ==============================
+    // =====================================
+    app.get('/drop', function(req, res) {
+        Todo.remove({}, function(err) {
+            console.log('collection removed')
+        });
+        res.redirect('/');
+
+    });
+
 };
 
 function isLoggedIn(req, res, next) {

@@ -6,6 +6,10 @@ body 					{
   padding-top:50px;
 }
 
+#page-header {
+    float:right;
+}
+
 #sin-form{
   margin-bottom:50px;
 }
@@ -18,19 +22,14 @@ body 					{
    padding-bottom: 5%;
    overflow:hidden;
    word-wrap:break-word;
-
    box-shadow: 1px 1px 8px #888888;
-
-
  }
 
  #sin-text{
    white-space: pre-line;
  }
 
-#sin-buttons{
 
-}
 h1{
   color: #8c590c !important;
   font-family: "Great Vibes", cursive;

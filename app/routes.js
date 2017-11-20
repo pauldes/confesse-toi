@@ -143,10 +143,6 @@ module.exports = function (app, passport) {
         });
     });
 
-    app.get('/posts', isLoggedIn, function (req, res) {
-        res.sendFile(appDir + '/public/posts.html'); // load the single view file (angular will handle the page changes on the front-end)
-    });
-
     // =====================================
     // LOGIN ===============================
     // =====================================
@@ -158,7 +154,7 @@ module.exports = function (app, passport) {
     });
 
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/posts', // redirect to the secure profile section
+        successRedirect : '/', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));

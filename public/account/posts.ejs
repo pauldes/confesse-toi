@@ -33,20 +33,22 @@
 <body ng-controller="mainController">
 	<div class="container">
 
-		<span><%= user._id %></span>
+	<div id="page-header">
 		<% if (user) { %>
+			<span> <%= user.local.email %> </span>
+
 			<a href="/profile" class="btn btn-default btn-sm " >Profile</a>
 			<a href="/logout" class="btn btn-default btn-sm ">Logout</a>
 		<% } else { %>
 			<a href="/login" class="btn btn-default btn-sm " >Login</a>
 			<a href="/signup" class="btn btn-default btn-sm ">Signup</a>
 		<% } %>
+	</div>
 
   <!-- HEADER AND SIN COUNT -->
   <div class="jumbotron text-center">
     <h1>Confess your sins</h1>
-    <h2>and we will judge you.</h2>
-    <h3>Oh yes we will.</h3>
+    <h2>You are safe here.</h2>
     <h4><span class="label label-info">{{ todos.length }}</span> sins have already ruined this world</h4>
   </div>
 
@@ -62,7 +64,7 @@
 				<textarea rows="5" class="form-control input-lg" placeholder="I stole a lollipop from my nephew" ng-model="formData.text"></textarea>
 			</div>
 
-	  <div class="col-sm-2 text-center">
+	  <div class="col-sm-2 text-center" >
 		<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Confess !</button>
 	  </div>
 		</div>
@@ -77,19 +79,21 @@
 
 		<!-- LOOP OVER THE SINS IN $scope.todos -->
 		<div id=sin-item>
-			<div class="col-sm-10" id=sin-t  >
+			<div class="col-sm-10" id=sin-text  >
 				{{ todo.text }}
 			</div>
-
+			<% if (user) { %>
 			<div class="col-sm-2 text-right">
 
 
-				<span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(todo._id)"></span>
-				{{todo.upvotes}}
-				<span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(todo._id)"></span>
-				{{todo.downvotes}}
-				<span class="glyphicon glyphicon-trash" ng-click="deleteTodo(todo._id)"></span>
+					<span class="glyphicon glyphicon-arrow-up" ng-click="upvoteSin(todo._id)"></span>
+					{{todo.upvotes}}
+					<span class="glyphicon glyphicon-arrow-down" ng-click="downvoteSin(todo._id)"></span>
+					{{todo.downvotes}}
+					<span class="glyphicon glyphicon-trash" ng-click="deleteTodo(todo._id)"></span>
+
 			</div>
+			<% } %>
 		</div>
 
 		<br>

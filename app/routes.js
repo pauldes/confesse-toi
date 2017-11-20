@@ -19,17 +19,6 @@ function getTodos(res) {
     });
 };
 
-function getUser(res) {
-    User.find(function (err, curuser) {
-
-        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        if (err) {
-            res.send(err);
-        }
-        res.json(curuser); // return the user in JSON format
-    });
-};
-
 
 module.exports = function (app, passport) {
 
@@ -40,9 +29,6 @@ module.exports = function (app, passport) {
         getTodos(res);
     });
 
-    app.get('/api/user', function(req,res){
-        getUser(res);
-    });
 
     // create sin and send back all sins after creation
     app.post('/api/todos', function (req, res) {
@@ -139,7 +125,7 @@ module.exports = function (app, passport) {
     app.get('/', function (req, res) {
 
         res.render('posts.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user ,// get the user out of session and pass to template
         });
     });
 
@@ -172,7 +158,7 @@ module.exports = function (app, passport) {
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : '/', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -184,7 +170,7 @@ module.exports = function (app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user
         });
     });
 

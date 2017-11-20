@@ -125,7 +125,7 @@ module.exports = function (app, passport) {
     app.get('/', function (req, res) {
 
         res.render('posts.ejs', {
-            user : req.user ,// get the user out of session and pass to template
+            user : req.user // get the user out of session and pass to template
         });
     });
 
